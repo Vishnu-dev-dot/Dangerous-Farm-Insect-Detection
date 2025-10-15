@@ -1,0 +1,212 @@
+
+{% extends 'insects/base.html' %}
+{% block content %}
+{% load static %}
+<body style="background: url('{% static 'images/bg1.png' %}'); background-size: cover;background-position:center;margin:0;height:100vh">
+<div class="row">
+  <div class="col-md-6" data-aos="fade-right">
+    <h2 class="fw-bold mb-3">Pesticide amount calculator</h2>
+    <form method="post" style='color:white'>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-primary btn-lg">Calculate</button>
+    </form>
+    <p class="text-white mt-2">Select pest to estimate concentration & total ml required. Always follow product labels.</p>
+  </div>
+
+  <div class="col-md-6" data-aos="fade-left">
+    <h2 class="fw-bold mb-3">Result</h2>
+    {% if output %}
+      <div class="card p-3 shadow-sm">
+        <p>Area (sq.ft): <strong>{{ output.area }}</strong></p>
+        <p>Liters needed: <strong>{{ output.liters_needed }}</strong></p>
+        <p>Pesticide (ml) total: <strong>{{ output.pesticide_ml_total }}</strong></p>
+        <p class="text-muted">Concentration (ml per L): <strong>{{ output.ml_per_liter }}</strong></p>
+        <p class="text-muted">{{ output.notes }}</p>
+      </div>
+
+      
+      {% if all_outputs %}
+      <div class="card p-3 shadow-sm mt-3">
+        <h5 class="mb-2">All classes — pesticide quantity for <strong>{{ output.area }}</strong> sq.ft</h5>
+        <div class="table-responsive" style="max-height:50vh; overflow:auto;">
+          <table class="table table-sm align-middle mb-0">
+            <thead class="sticky-top bg-light">
+              <tr>
+                <th>#</th>
+                <th>Class</th>
+                <th>Conc (ml/L)</th>
+                <th>Liters</th>
+                <th>Total (ml)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in all_outputs %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ row.insect_label }}</td>
+                <td>{{ row.ml_per_liter }}</td>
+                <td>{{ row.liters_needed }}</td>
+                <td>{{ row.pesticide_ml_total }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <small class="text-muted d-block mt-2">
+          Tips: Quantities are based on 1 L covering 1000 sq.ft and example concentrations. Always verify with the actual product label.
+        </small>
+      </div>
+      {% endif %}
+    {% else %}
+      <p class="text-white">Enter area and select insect to compute recommended amounts.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% extends 'insects/base.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pesticide Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .result-card, .table-card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .table-card {
+            width: 100%;
+        }
+
+        .scrollable-table {
+            overflow-x: auto;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(-10px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        @keyframes slideUp {
+            from {opacity: 0; transform: translateY(30px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="form-section">
+        <h1>Pesticide amount calculator</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="area">Area (sq.ft):</label>
+            <input type="number" id="area" name="area" value="{{ area|default:'' }}" required>
+
+            <label for="class_name">Insect / Pest:</label>
+            <select id="class_name" name="class_name">
+                {% for cls in classes %}
+                    <option value="{{ cls }}" {% if selected_class == cls %}selected{% endif %}>{{ cls }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Calculate</button>
+        </form>
+        <p>Select pest to estimate concentration & total ml required. Always follow product labels.</p>
+    </div>
+
+    <div class="result-card animate-fade-in">
+        <h2>Result</h2>
+        {% if calculation %}
+            <p><strong>Predicted Class:</strong> {{ selected_class }}</p>
+            <p>Area (sq.ft): <strong>{{ calculation.area }}</strong></p>
+            <p>Liters needed: <strong>{{ calculation.liters }}</strong></p>
+            <p>Pesticide (ml) total: <strong>{{ calculation.total_ml }}</strong></p>
+            <p>Concentration (ml per L): <strong>{{ calculation.concentration }}</strong></p>
+        {% else %}
+            <p>No calculation yet.</p>
+        {% endif %}
+        <small>Assumptions: 1 L covers 1000 sq.ft. Concentrations are example values—always follow product label.</small>
+    </div>
+
+    <div class="table-card animate-slide-up">
+        <h2>All classes — pesticide quantity for {{ calculation.area }} sq.ft</h2>
+        <div class="scrollable-table">
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Class</th>
+                    <th>Conc (ml/L)</th>
+                    <th>Liters</th>
+                    <th>Total (ml)</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in all_calculations %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ row.class_name }}</td>
+                        <td>{{ row.concentration }}</td>
+                        <td>{{ row.liters }}</td>
+                        <td>{{ row.total_ml }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %} {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+

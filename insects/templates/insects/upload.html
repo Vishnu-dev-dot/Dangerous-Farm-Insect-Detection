@@ -1,0 +1,91 @@
+{% extends 'insects/base.html' %}
+{% block content %}
+{% load static %}
+
+<body style="background-image: url('{% static 'images/bg6.jpeg' %}'); background-repeat: no-repeat; background-size:cover">
+<div class="row">
+  <div class="col-md-6" data-aos="fade-right">
+    <h2 class="fw-bold mb-3">Upload insect image</h2>
+    <form method="post" enctype="multipart/form-data" class="mb-3">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-success btn-lg">Predict</button>
+    </form>
+  </div>
+
+  <div class="col-md-6" data-aos="fade-left">
+    <h2 class="fw-bold mb-3">Result</h2>
+
+    {% if result %}
+      {% if result.error %}
+        <div class="alert alert-danger">Error: {{ result.error }}</div>
+      {% else %}
+        <div class="card p-3 shadow-sm">
+          <div class="row g-3 align-items-center">
+            <div class="col-sm-6 text-center">
+              {% if uploaded_url %}
+                <img src="{{ uploaded_url }}" alt="Uploaded image"
+                     class="img-fluid rounded"
+                     style="max-height: 280px; object-fit: contain; background:#f9fafb;">
+              {% endif %}
+            </div>
+            <div class="col-sm-6">
+              <h4>Predicted: <strong>{{ result.label }}</strong></h4>
+              <p>Confidence: {{ result.confidence|floatformat:2 }}</p>
+              <h5 class="mt-3">Pesticide recommendation</h5>
+              <p>{{ result.pesticide }}</p>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% else %}
+      <p class="text-muted">No image uploaded yet.</p>
+    {% endif %}
+  </div>
+</div>
+</body>
+{% endblock %}
+
+
+
+
+
+
+
+
+{% comment %} {% extends 'insects/base.html' %}
+{% block content %}
+{% load static %}
+
+<body style="background-image: url('{% static 'images/bg6.jpeg' %}'); background-repeat: no-repeat; background-size:cover">
+<div class="row">
+  <div class="col-md-6" data-aos="fade-right">
+    <h2 class="fw-bold mb-3">Upload insect image</h2>
+    <form method="post" enctype="multipart/form-data" class="mb-3">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-success btn-lg">Predict</button>
+    </form>
+    
+  </div>
+  <div class="col-md-6" data-aos="fade-left">
+    <h2 class="fw-bold mb-3">Result</h2>
+    {% if result %}
+      {% if result.error %}
+        <div class="alert alert-danger">Error: {{ result.error }}</div>
+      {% else %}
+        <div class="card p-3 shadow-sm">
+          <h4>Predicted: <strong>{{ result.label }}</strong></h4>
+          <p>Confidence: {{ result.confidence|floatformat:2 }}</p>
+          <h5 class="mt-3">Pesticide recommendation</h5>
+          <p>{{ result.pesticide }}</p>
+        </div>
+      {% endif %}
+    {% else %}
+      <p class="text-muted">No image uploaded yet.</p>
+    {% endif %}
+  </div>
+</div>
+</body>
+{% endblock %} {% endcomment %}
+

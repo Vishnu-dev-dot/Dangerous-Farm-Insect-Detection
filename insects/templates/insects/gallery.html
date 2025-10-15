@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div id="slide">
+            <div class="item" style="background-image: url('{% static 'images/honey_bees.png' %}';onerror="this.onerror=null; this.src='{% static 'images/honey_bees.png' %}';" 
+       alt="Stink Bugs"">
+                <div class="content">
+                    <div class="name">Africanized Honey_Bees</div>
+                    {% comment %} <div class="des">Tinh ru anh di chay pho, chua kip chay pho thi anhchay mat tieu</div> {% endcomment %}
+                    <button>See more</button>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('{% static 'images/stink.png' %}';">
+                <div class="content">
+                    <div class="name">Stink Bugs</div>
+                    {% comment %} <div class="des">Tinh ru anh di chay pho, chua kip chay pho thi anhchay mat tieu</div> {% endcomment %}
+                    <button>See more</button>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('{% static 'images/thrips.png' %}';">
+                <div class="content">
+                    <div class="name">Thrips</div>
+                    {% comment %} <div class="des">Tinh ru anh di chay pho, chua kip chay pho thi anhchay mat tieu</div> {% endcomment %}
+                    <button>See more</button>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('{% static 'images/western.png' %}';">
+                <div class="content">
+                    <div class="name">Western Bugs</div>
+                    {% comment %} <div class="des">Tinh ru anh di chay pho, chua kip chay pho thi anhchay mat tieu</div> {% endcomment %}
+                    <button>See more</button>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('{% static 'images/spidermites.png' %}';">
+                <div class="content">
+                    <div class="name">Spider_mites</div>
+                    {% comment %} <div class="des">Tinh ru anh di chay pho, chua kip chay pho thi anhchay mat tieu</div> {% endcomment %}
+                    <button>See more</button>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('{% static 'images/colorado.png' %}';">
+                <div class="content">
+                    <div class="name">Colorado</div>
+                    {% comment %} <div class="des">Tinh ru anh di chay pho, chua kip chay pho thi anhchay mat tieu</div> {% endcomment %}
+                    <button>See more</button>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('{% static 'images/cabbage.png' %}';">
+                <div class="content">
+                    <div class="name">Cabbage Loopers</div>
+                    {% comment %} <div class="des">Tinh ru anh di chay pho, chua kip chay pho thi anhchay mat tieu</div> {% endcomment %}
+                    <button>See more</button>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('{% static 'images/cornborers.png' %}';">
+                <div class="content">
+                    <div class="name">Corn Borers</div>
+                    {% comment %} <div class="des">Tinh ru anh di chay pho, chua kip chay pho thi anhchay mat tieu</div> {% endcomment %}
+                    <button>See more</button>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('{% static 'images/fruitflies.png' %}';">
+                <div class="content">
+                    <div class="name">Fruitflies</div>
+                    {% comment %} <div class="des">Tinh ru anh di chay pho, chua kip chay pho thi anhchay mat tieu</div> {% endcomment %}
+                    <button>See more</button>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('{% static 'images/fallarmyworms.png' %}';">
+                <div class="content">
+                    <div class="name">Fall armyworms</div>
+                    {% comment %} <div class="des">Tinh ru anh di chay pho, chua kip chay pho thi anhchay mat tieu</div> {% endcomment %}
+                    <button>See more</button>
+                </div>
+            </div>
+
+       
+        </div>
+        <div class="buttons">
+            <button id="prev"><i class="fa-solid fa-angle-left"></i></button>
+            <button id="next"><i class="fa-solid fa-angle-right"></i></button>
+        </div>
+    </div>
+
+<script>   
+document.getElementById('next').onclick = function(){
+    let lists = document.querySelectorAll('.item');
+    document.getElementById('slide').appendChild(lists[0]);
+}
+document.getElementById('prev').onclick = function(){
+    let lists = document.querySelectorAll('.item');
+    document.getElementById('slide').prepend(lists[lists.length - 1]);
+}
+</script>
+</body>
+</html>

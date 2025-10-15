@@ -1,0 +1,158 @@
+/* ========= Global Layout ========= */
+body {
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  color: #1f2937;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* ========= Navbar ========= */
+.navbar {
+  background-color: #ffffff;
+  transition: box-shadow .3s ease-in-out;
+}
+.navbar.scrolled {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #2563eb !important;
+}
+.navbar-nav .nav-link {
+  font-weight: 500;
+  color: #374151 !important;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+.navbar-nav .nav-link:hover {
+  color: #2563eb !important;
+}
+
+/* ========= Headings & Text ========= */
+h1, h2, h3, h4, h5 {
+  font-weight: 700;
+  color: #111827;
+}
+p.lead {
+  font-size: 1.15rem;
+  color: #4b5563;
+}
+
+/* ========= Cards & Panels ========= */
+.card {
+  border-radius: 16px;
+  border: none;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.card h4 {
+  margin-bottom: .5rem;
+}
+
+/* ========= Buttons ========= */
+.btn {
+  border-radius: 12px;
+  padding: .6rem 1.2rem;
+  font-weight: 600;
+  transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+.btn-primary {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+.btn-primary:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+.btn-outline-secondary {
+  color: #374151;
+  border-color: #d1d5db;
+}
+.btn-outline-secondary:hover {
+  background-color: #f3f4f6;
+}
+
+/* ========= Forms ========= */
+input.form-control,
+select.form-control,
+textarea.form-control {
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  padding: .6rem .8rem;
+  box-shadow: none;
+}
+input.form-control:focus,
+select.form-control:focus,
+textarea.form-control:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 0.1rem rgba(37, 99, 235, 0.25);
+}
+
+/* ========= Hero section animations ========= */
+.hero-cta {
+  transform: translateY(0);
+  transition: transform .4s ease-in-out;
+}
+.hero-cta:hover {
+  transform: translateY(-6px);
+}
+
+/* ========= Responsive spacing tweaks ========= */
+@media (max-width: 767px) {
+  h1.display-5 {
+    font-size: 1.8rem;
+  }
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+  .btn {
+    padding: .5rem 1rem;
+  }
+}
+
+/* ========= Custom small animation for file input ========= */
+.btn-glow {
+  animation: glow .8s infinite alternate;
+}
+@keyframes glow {
+  from { box-shadow: 0 0 5px #2563eb; }
+  to   { box-shadow: 0 0 15px #2563eb; }
+}
+.result-card, .table-card {
+  background: rgba(255, 255, 255, 0.92); /* soft opacity */
+  border-radius: 16px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.table-card {
+  width: 100%; /* stretch full width */
+}
+
+.scrollable-table {
+  overflow-x: auto;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes slideUp {
+  from {opacity: 0; transform: translateY(30px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-in-out;
+}

@@ -1,0 +1,74 @@
+{% extends 'insects/base.html' %}
+{% block content %}
+{% load static %}
+<body style="background-color:  hsla(120, 87%, 27%, 0.50)">
+{% comment %} <body style="background: url('{% static 'images/bg6.jpeg' %}'); background-size: cover;background-position:center;margin:0;height:100vh;color:white"> {% endcomment %}
+<div class="row align-items-center">
+  <div class="col-md-6" data-aos="fade-right">
+    <h1 class="display-5 fw-bold">Dangerous Farm Insects Detection</h1>
+    <p class="lead"><b>Hybrid AI model to detect hazardous insects and recommend pesticides & dosage.</b></p>
+    <p>Classes supported: <strong>{{ class_count }}</strong></p>
+    <a href="{% url 'insects:upload' %}" class="btn btn-success btn-lg" style="color:black">Upload image &amp; predict</a>
+    <a href="{% url 'insects:calculate' %}" class="btn btn-outline-secondary btn-lg">Pesticide calculator</a>
+  </div>
+  <div class="col-md-6 text-center" data-aos="zoom-in">
+    <img src="{% static 'images/bg.jpeg' %}" class="img-fluid rounded shadow" alt="Farm insects">
+  </div>
+</div>
+
+{% comment %} <!-- ===== Insect Carousel (15 classes) ===== -->
+<section class="my-5" data-aos="fade-up">
+  <h2 class="fw-bold text-center mb-3">Browse Insects</h2>
+  <p class="text-center text-muted mb-4">Tap / click a card to hear the insect sound.</p>
+
+  <div class="swiper insect-swiper">
+    <div class="swiper-wrapper">
+
+      {# Use your real file names. These are clean slugs as placeholders. #}
+      {% for name in classes %}
+        {% with slug=name|slugify %}
+        <div class="swiper-slide">
+          <figure class="insect-card" data-audio="{% static 'insects/audio/' %}{{ slug }}.mp3"
+                  data-label="{{ name }}">
+            <img
+              src="{% static 'insects/img/' %}{{ slug }}.jpg"
+              alt="{{ name }}"
+              class="insect-img"
+              loading="lazy" />
+              <figcaption class="insect-cap">
+              <span class="cap-name">{{ name }}</span>
+              <button class="btn btn-sm btn-light play-btn" type="button" aria-label="Play sound">
+                ▶
+              </button>
+            </figcaption>
+          </figure>
+        </div>
+        {% endwith %}
+      {% endfor %}
+
+    </div> {% endcomment %}
+
+    <!-- controls -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-pagination"></div>
+  </div>
+</section>
+
+<hr class="my-5">
+<div class="row text-center">
+  <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+    <h4>How it works</h4>
+    <p>Upload an image — model predicts species and provides pesticide recommendations.</p>
+  </div>
+  <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+    <h4>Accurate</h4>
+    <p>Model trained on domain data (`hybrid_model.keras`).</p>
+  </div>
+  <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+    <h4>Practical</h4>
+    <p>Area-based dosage calculator included for quick planning.</p>
+  </div>
+</div>
+</body>
+{% endblock %}
